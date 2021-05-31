@@ -6,14 +6,25 @@
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.mateuszporzucek.ostupgrade.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.mateuszporzucek.ostupgrade.services.MyProjectService"/>
+        <completion.contributor language="JAVA" implementationClass="pl.mateo.upgradulla.contributors.UpgradeCompletitionContributor"/>
     </extensions>
 
     <applicationListeners>
         <listener class="com.github.mateuszporzucek.ostupgrade.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <actions>
+        <action
+                id="StackOverflow.Search.Editor"
+                class="pl.mateo.upgradulla.actions.QueryAction"
+                text="Search on Stack Overflow"
+                description="Search on Stack Overflow">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
